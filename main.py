@@ -5,6 +5,8 @@ from http_query import get_with_auto_decode
 from file_operator import save_as_resource
 from file_operator import read_resource
 import lxml.html
+import json
+
 from tool import trim_word
 from tool import extract_content
 
@@ -31,12 +33,27 @@ def test2() :
 	title_list = doc.xpath('//*[@class="biTitle"]/text()')
 	content_list = doc.xpath('//*[@class="biContent"]/text()')
 
+	data = {}
+
 	for index in range(len(title_list)) :
 		btitle = extract_content(title_list[index].encode("utf8"))
 		bcontent = extract_content(content_list[index].encode("utf8"))
+		data[btitle] = bcontent
 		print btitle, bcontent
 
+	print data
+	json_str = json.dumps(data)
 	print "--------------"
+	print json_str
+	print data.get("中文名")
 
 
-test2()
+def xpath_test():
+	content = read_resource("jiang.html")
+	doc = parser.fromstring(content)
+	root = doc.text_content()
+	print root
+
+
+# test2()
+xpath_test()

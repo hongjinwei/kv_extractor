@@ -42,7 +42,8 @@ def extract_chinese(sentence):
 
 def extract_content(sentence):
 	sentence = sentence.decode("utf8")
-	return "".join([c for c in sentence if is_content(c)])
+	ans = "".join([c for c in sentence if is_content(c)])
+	return ans.encode("utf8")
 
 
 def _show_character(sentence):

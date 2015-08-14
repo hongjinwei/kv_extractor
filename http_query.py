@@ -4,6 +4,7 @@ __author__ = 'BAO'
 import urllib2
 import chardet
 
+
 def get_with_auto_decode(url):
 	try:
 		response =  urllib2.urlopen(url)
@@ -17,6 +18,7 @@ def get_with_auto_decode(url):
 	finally:
 		response.close()
 	return ""
+
 
 def get(url, encode='utf8'):
 		try:

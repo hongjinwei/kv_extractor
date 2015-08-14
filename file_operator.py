@@ -23,11 +23,29 @@ def cur_file_dir():
 
 
 directory = cur_file_dir() + "/resources/"
+if not os.path.isdir(directory):
+	os.mkdir(directory)
 
 
 def save_as_resource(filename, content):
 	content = content.encode('utf8')
-	f = directory + filename
+	paths = filename.split("/")
+	print paths
+	real_filename = paths[-1]
+	abspath = directory
+	for i in range(len(paths) - 1):
+		print i
+		path = paths[i]
+		if path == '':
+			continue
+		abspath = directory + path + "/"
+		print abspath
+		if not os.path.isdir(abspath):
+			print "mkdir"
+			os.mkdir(abspath)
+
+	# print abspath
+	f = abspath + real_filename
 	fp = open(f, 'w')
 	try:
 		fp.write(content)
@@ -52,6 +70,10 @@ def read_resource(filename):
 	f = directory + filename
 	fp = open(f, 'r')
 	return fp.read()
+
+
+def clean_page(html_page):
+	pass
 
 if __name__ == "__main__":
 	print(cur_file_dir())
